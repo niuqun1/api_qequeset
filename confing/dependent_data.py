@@ -16,7 +16,7 @@ import sys
 import json
 
 from confing.operation_excel import OpenrationExcel
-from base.base import RunMethod
+from base.runmethod import RunMethod
 from get_data.get_data import GetData
 from jsonpath_rw import jsonpath, parse
 
@@ -44,28 +44,31 @@ class DependdentData:
     def get_data_for_key(self, row,new_data):
         """
         :param row: 传入行
-        :param data_new:传入要修改的数据
+        :param new_data:传入要修改的数据
         :return:
         """
         # 获取接受的字段
-        data_new=json.loads(new_data)
-        depend_key = self.data.get_data_depend_new(row)
-        depend_key_new = depend_key.split(';')
-        if depend_key != '':
-            for key in range(len(depend_key_new)):
-                # 获取数据依赖字段
-                depend_data = self.data.get_field_depend(row)
-                depend_data_new = depend_data.split(';')
-                # 获取依赖数据
-                response_data = self.run_dependent()
-                # 获取依赖字段
-                json_exe = parse(depend_data_new[key])
-                madle = json_exe.find(response_data)
-                new_data = [math.value for math in madle][0]
-                data_new[depend_key_new[key]] = new_data
-            return json.dumps(data_new)
+        if new_data !='':
+            data_new=json.loads(new_data)
+            depend_key = self.data.get_data_depend_new(row)
+            depend_key_new = depend_key.split(';')
+            if depend_key != '':
+                for key in range(len(depend_key_new)):
+                    # 获取数据依赖字段
+                    depend_data = self.data.get_field_depend(row)
+                    depend_data_new = depend_data.split(';')
+                    # 获取依赖数据
+                    response_data = self.run_dependent()
+                    # 获取依赖字段
+                    json_exe = parse(depend_data_new[key])
+                    madle = json_exe.find(response_data)
+                    new_data = [math.value for math in madle][0]
+                    data_new[depend_key_new[key]] = new_data
+                return json.dumps(data_new)
+            else:
+                return json.dumps(data_new)
         else:
-            return json.dumps(data_new)
+            return None
 
 
 
