@@ -20,7 +20,7 @@ from util import operation_header
 from util.send_email import SendEmail
 
 host_test = 'https://test.duyaya.com'
-host_api = 'https://duyaya.com'
+host_api = 'https://api.duyaya.com'
 host_dev = 'https://dev.duyaya.com'
 class RunTest:
     def __init__(self):
@@ -40,7 +40,7 @@ class RunTest:
             is_run = self.data.get_is_run(i)
             if is_run:#执行
                 urls=self.data.get_url(i)#接口地址
-                url=host_test+urls
+                url=host_api+urls
                 method=self.data.git_method_way(i)#请求方
                 former=self.data.get_api_data(i)#请求数据
                 expect=self.data.get_expcet_data(i)#预期结果
@@ -70,6 +70,8 @@ class RunTest:
 if __name__=="__main__":
     run=RunTest()
     print(run.go_on_run())
+
+
 
 
 

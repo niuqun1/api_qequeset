@@ -15,7 +15,7 @@
 class CommonUtil:
     def is_contain(self,str_one=None,str_two=None):# 判断预期跟实际是否一致
         if str_one=="":
-            print("没有预期结果无法对比")
+            pass
         else:
             flag=None
             if str_one in str_two:
